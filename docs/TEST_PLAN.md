@@ -101,3 +101,12 @@ Every endpoint has at least one test. The gaps are in depth, not breadth (sectio
 - **G1, G2, G3 closed** by the new tests.
 - **G4 corrected:** `updateTicketStatus` enforces no transition rules. Any of `Open`, `In Progress`, `Resolved` is accepted from any current state, and `Closed` is rejected by the validator (400). Tests now document this behaviour. Whether Resolved to Open should be blocked is a product decision, not a test gap.
 - **G5 note:** the `search` filter relies on a MongoDB `$text` index, which mocked models cannot verify. This is covered on Day 4 with an in-memory database.
+
+
+
+## 10. Day 4 results
+
+- **G5 closed:** `tests/integration/tickets.db.test.js` (16 tests) runs the ticket endpoints against a real in-memory MongoDB (`mongodb-memory-server`) with nothing mocked. It verifies schema defaults and validation, the `$text` search index, role-scoped queries, status and priority filters, stats counts, and persisted updates.
+- **G6 closed:** `coverageThreshold` added to `jest.config.js` (statements 95, branches 90, functions 95, lines 95). The run fails if coverage drops below this floor.
+- **Totals:** 84 tests across 8 suites, all passing, with 100% statement, branch, function and line coverage.
+- **Out of scope:** G7 (widening coverage to routes and models) and G8 (frontend tests).
