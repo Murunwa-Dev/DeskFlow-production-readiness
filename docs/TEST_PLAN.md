@@ -91,3 +91,13 @@ Every endpoint has at least one test. The gaps are in depth, not breadth (sectio
 - Coverage at or above thresholds, with no endpoint lacking a 401/403 check
 - Coverage report and test output saved as sprint evidence
 - Work merged through PRs only (branch protection on `main`)
+
+
+
+## 9. Day 3 results
+
+- **Tests:** 68 across 7 suites (17 added) in `tests/unit/edge-cases.test.js` and `tests/integration/tickets.gaps.test.js`.
+- **Coverage:** 100% statements, branches, functions and lines (baseline was 98.58 / 90.66 / 100 / 98.52).
+- **G1, G2, G3 closed** by the new tests.
+- **G4 corrected:** `updateTicketStatus` enforces no transition rules. Any of `Open`, `In Progress`, `Resolved` is accepted from any current state, and `Closed` is rejected by the validator (400). Tests now document this behaviour. Whether Resolved to Open should be blocked is a product decision, not a test gap.
+- **G5 note:** the `search` filter relies on a MongoDB `$text` index, which mocked models cannot verify. This is covered on Day 4 with an in-memory database.
